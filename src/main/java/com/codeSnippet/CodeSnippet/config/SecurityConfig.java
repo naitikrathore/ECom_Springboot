@@ -15,8 +15,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-
 @Configuration //tells spring that listen this class can define beans that you have to manage.
 @EnableWebSecurity //it turns on Spring WebSecurity support and it tells here may be filters will modify.
 @RequiredArgsConstructor

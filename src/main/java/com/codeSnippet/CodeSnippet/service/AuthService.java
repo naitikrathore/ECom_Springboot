@@ -29,6 +29,6 @@ public class AuthService {
         // Users object we returned earlier — not magic, just the same instance passed back.
         Users user = (Users) authenticated.getPrincipal();
 
-        return jwtUtils.generateToken(user.getUsername(), user.getPassword());
+        return jwtUtils.generateToken(user.getUsername());
     }
 }

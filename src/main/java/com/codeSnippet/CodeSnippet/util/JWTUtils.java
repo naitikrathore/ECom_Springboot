@@ -4,7 +4,6 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -23,7 +22,7 @@ public class JWTUtils {
         return Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
     }
 
-    public String generateToken(String username, String password) {
+    public String generateToken(String username) {
         return Jwts.builder()
                 .subject(username)
                 .issuedAt(new Date(System.currentTimeMillis()))
@@ -36,19 +35,15 @@ public class JWTUtils {
         return getClaim(token).getSubject();
     }
 
+    public boolean isTokenValid(String token) {
+        return getClaim(token).getExpiration().after(new Date());
+    }
+
     public Claims getClaim(String token){
         return Jwts.parser()
                 .verifyWith(getKey())
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
-    }
-
-    public boolean validateToken(String username, UserDetails userDetails, String token){
-        return username.equals(userDetails.getUsername()) && isTokenValid(token);
-    }
-
-    private boolean isTokenValid(String token) {
-        return getClaim(token).getExpiration().after(new Date());
     }
 }
