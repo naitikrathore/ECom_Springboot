@@ -29,6 +29,9 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/health_check/**", "/auth/**").permitAll()
+                                .requestMatchers("/products/**").hasRole("USER")
+                                // Security is checking does the authenticated user have authority "ROLE_USER"?
+                                .requestMatchers("/orders/**").hasRole("ADMIN")
                                 .anyRequest().authenticated());
         http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
