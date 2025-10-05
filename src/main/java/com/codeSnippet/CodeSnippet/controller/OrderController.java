@@ -26,12 +26,12 @@ public class OrderController {
     }
 
     @GetMapping("/{orderId}")
-    public ResponseEntity<ResponseOrderDto> getOrderByOrderId(@PathVariable Long orderId){
+    public ResponseEntity<ResponseOrderDto> getOrderByOrderId(@PathVariable Long orderId) {
         return ResponseEntity.ok(orderService.getOrderByOrderId(orderId));
     }
 
     @PostMapping
-    public  ResponseEntity<ResponseOrderDto> saveOrder(@RequestBody @Valid RequestOrderDto requestOrderDto){
+    public ResponseEntity<ResponseOrderDto> saveOrder(@RequestBody @Valid RequestOrderDto requestOrderDto) {
         return ResponseEntity.ok(orderService.saveOrder(requestOrderDto));
     }
 
